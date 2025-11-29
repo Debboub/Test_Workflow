@@ -1,0 +1,21 @@
+name: Jobs en pipeline
+
+on: push
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Étape 1 : Job 1 terminé"
+
+  job2:
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+      - run: echo "Étape 2 : Job 2 après Job 1"
+
+  job3:
+    runs-on: ubuntu-latest
+    needs: job2
+    steps:
+      - run: echo "Étape 3 : Job 3 après Job 2"
