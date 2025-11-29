@@ -1,0 +1,19 @@
+name: Jobs en parallèle
+
+on: push
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Job Linux"
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - run: echo "Job Windows"
+
+  mac:
+    runs-on: macos-latest
+    steps:
+      - run: echo "Job MacOS"
