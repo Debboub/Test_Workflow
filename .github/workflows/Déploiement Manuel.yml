@@ -1,0 +1,44 @@
+name:  Déploiement Manuel
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: ' Choisir l environnement'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+        - development
+        - staging
+        - production
+      version:
+        description: 'Version à déployer'
+        required: false
+        default: 'latest'
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    
+    steps:
+      - name:  Récupérer le code
+        uses: actions/checkout@v4
+        
+      - name:  Afficher l environnement choisi
+        run: |
+          echo " Déploiement en cours..."
+          echo " Environnement: ${{ github.event.inputs.environment }}"
+          echo " Version: ${{ github.event.inputs.version }}"
+          
+      - name:  Étapes spécifiques à l environnement
+        run: |
+          if [ "${{ github.event.inputs.environment }}" == "production" ]; then
+            echo " Déploiement PRODUCTION - Vérifications de sécurité..."
+          elif [ "${{ github.event.inputs.environment }}" == "staging" ]; then
+            echo " Déploiement STAGING - Tests requis..."
+          else
+            echo "💻 Déploiement DEVELOPMENT - Mode debug..."
+          fi
