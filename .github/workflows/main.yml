@@ -1,0 +1,20 @@
+name:  Tâche Quotidienne
+
+on:
+  schedule:
+    # Tous les jours à 6h du matin
+    - cron: '0 6 * * *'
+
+jobs:
+  tache-automatique:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+        
+      - name:  Message quotidien
+        run: echo " Bonjour ! Il est 6h du matin - Tâche exécutée le $(date)"
+        
+      - name: 📊 Vérifier l'espace disque
+        run: df -h
